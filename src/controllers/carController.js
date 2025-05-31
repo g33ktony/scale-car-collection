@@ -1,7 +1,6 @@
 import Car from '../models/Car.js'
 import { recognizeCar } from '../services/recognitionService.js'
 import stringSimilarity from 'string-similarity'
-import Car from '../models/Car.js'
 
 export const checkDuplicate = async (req, res) => {
     try {
