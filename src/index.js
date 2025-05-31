@@ -11,7 +11,7 @@ app.use(cors({ origin: '*' }))
 app.use(express.json())
 app.use('/uploads', express.static('uploads'))
 app.use((req, res, next) => {
-    console.log('📩', req.method, req.originalUrl)
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.originalUrl}`)
     next()
 })
 
