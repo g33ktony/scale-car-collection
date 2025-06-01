@@ -1,6 +1,23 @@
 import Car from '../models/Car.js'
 import { recognizeCar } from '../services/recognitionService.js'
 import stringSimilarity from 'string-similarity'
+import { extractTextFromImage } from '../ocr/ocrService.js'
+
+export const extractCarInfo = async (req, res) => {
+    try {
+        const filePath = req.file.path
+        const extractedText = await extractTextFromImage(filePath)
+
+        // Optionally: you could parse the text to guess fields like name/color/etc.
+
+        res.json({
+            rawText: extractedText,
+        })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ message: 'OCR failed' })
+    }
+}
 
 export const checkDuplicate = async (req, res) => {
     try {
