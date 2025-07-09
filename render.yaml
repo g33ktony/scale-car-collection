@@ -9,7 +9,10 @@ services:
       - key: NODE_VERSION
         value: "18.17.1"
       - key: MONGO_URI
-      - key: CLOUDINARY_URL
+        sync: false
       - key: CLOUDINARY_CLOUD_NAME
+        sync: false
       - key: CLOUDINARY_API_KEY
+        sync: false
       - key: CLOUDINARY_API_SECRET
+        sync: false
