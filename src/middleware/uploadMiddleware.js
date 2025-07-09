@@ -1,21 +1,16 @@
-import multer from 'multer'
-import path from 'path'
-import fs from 'fs'
+import multer from 'multer';
+import { CloudinaryStorage } from 'multer-storage-cloudinary';
+import cloudinary from '../config/cloudinary.js';
 
-// Crear carpeta si no existe
-const uploadsDir = 'uploads'
-if (!fs.existsSync(uploadsDir)) {
-    fs.mkdirSync(uploadsDir)
-}
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'uploads/')
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'scale-car-collection',
+        format: async (req, file) => 'jpg', // supports promises as well
+        public_id: (req, file) => Date.now() + '-' + Math.round(Math.random() * 1E9),
     },
-    filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9)
-        cb(null, uniqueSuffix + path.extname(file.originalname))
-    }
-})
+});
 
-export const upload = multer({ storage })
+const upload = multer({ storage: storage });
+
+export default upload;

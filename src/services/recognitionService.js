@@ -1,7 +1,8 @@
 import axios from 'axios'
 import fs from 'fs'
+import ENV from '../../env.js'
 
-const CLARIFAI_API_KEY = process.env.CLARIFAI_API_KEY
+const CLARIFAI_API_KEY = ENV.CLARIFAI_API_KEY
 const CLARIFAI_URL = 'https://api.clarifai.com/v2/models/general-image-recognition/outputs'
 
 export const recognizeCar = async (imagePath) => {

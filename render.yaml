@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: scale-car-collection-backend
+    runtime: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "node src/index.js"
+    envVars:
+      - key: NODE_VERSION
+        value: "18.17.1"
+      - key: MONGO_URI
+      - key: CLOUDINARY_URL
+      - key: CLOUDINARY_CLOUD_NAME
+      - key: CLOUDINARY_API_KEY
+      - key: CLOUDINARY_API_SECRET
