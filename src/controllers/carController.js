@@ -96,7 +96,8 @@ export const getAllCars = async (req, res) => {
 // }
 
 export const addCar = async (req, res) => {
-    console.log("🚀 ~ addCar ~ addCar:")
+    console.log("🚀 ~ addCar ~ req.body:", req.body);
+    console.log("🚀 ~ addCar ~ req.file:", req.file);
     try {
         const { model, year, brand, series, color, acquisitionDate, cost, imageUrl, rarity, notes } = req.body
 
@@ -105,11 +106,19 @@ export const addCar = async (req, res) => {
 
         if (req.file) {
             // Case 1: A new file was uploaded to Cloudinary
-            finalImageUrl = req.file.path;
-            imageUrlPublicId = req.file.filename;
+            if (req.file.path) {
+                finalImageUrl = req.file.path;
+                imageUrlPublicId = req.file.filename;
+            } else {
+                console.error('Cloudinary upload failed, req.file.path is missing:', req.file);
+                return res.status(400).json({ message: 'Error uploading image to Cloudinary.' });
+            }
         } else if (imageUrl) {
             // Case 2: An existing URL was provided in the body
             finalImageUrl = imageUrl;
+        } else {
+            console.error('No image provided.');
+            return res.status(400).json({ message: 'No image provided.' });
         }
 
         const newCar = new Car({
