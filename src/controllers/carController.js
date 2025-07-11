@@ -99,7 +99,7 @@ export const addCar = async (req, res) => {
     console.log("🚀 ~ addCar ~ req.body:", req.body);
     console.log("🚀 ~ addCar ~ req.file:", req.file);
     try {
-        const { model, year, brand, series, color, acquisitionDate, cost, imageUrl, rarity, notes } = req.body
+        const { model, year, brand, series, color, acquisitionDate, cost, imageUrl, rarity, notes, type } = req.body
 
         let finalImageUrl = '';
         let imageUrlPublicId = '';
@@ -129,6 +129,7 @@ export const addCar = async (req, res) => {
             color: color || 'N/A',
             rarity,
             notes,
+            type,
             acquisitionDate,
             cost,
             imageUrl: finalImageUrl,
